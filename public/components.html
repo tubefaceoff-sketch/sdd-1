@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Design kit — componentes</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Só desta página de guia. Não copie para o app. */
+    .guide { max-width: 1100px; margin: 0 auto; padding: 40px 24px 80px; display: flex; flex-direction: column; gap: 50px; }
+    .guide > header p { color: var(--bd-muted); margin: 8px 0 0; }
+    .demo { margin-top: 16px; }
+    .demo + pre { margin: 12px 0 0; padding: 16px 20px; background: #2D2D2D; color: #F1F1F1; border-radius: 15px; font-size: 12.5px; line-height: 1.5; overflow-x: auto; }
+    .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; margin-top: 16px; }
+    .swatch { border-radius: 15px; overflow: hidden; border: 1px solid var(--bd-border); background: #fff; }
+    .swatch div { height: 56px; }
+    .swatch p { margin: 0; padding: 8px 12px; font-size: 12px; line-height: 1.4; }
+    .swatch code { color: var(--bd-muted); }
+    .frame { border: 1px solid var(--bd-border); border-radius: 20px; overflow: hidden; background: var(--bd-bg); }
+    .frame .bd-app { min-height: 0; }
+    .frame .bd-header { position: static; }
+    .toc { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 14px; font-size: 14px; }
+  </style>
+</head>
+<body>
+<div class="guide">
+
+  <header>
+    <h1 style="font-size:32px">Design kit · componentes</h1>
+    <p>Identidade visual da <strong>Pitang</strong> (cores, fontes e layout de pitang.com), em HTML + CSS puro: <code>public/styles.css</code>.
+       Todo elemento da tela deve usar uma destas classes. Não escreva CSS novo.</p>
+    <nav class="toc">
+      <a href="#tokens">Tokens</a><a href="#layout">Layout</a><a href="#card">Cartão</a><a href="#stats">Indicadores</a>
+      <a href="#form">Formulário</a><a href="#btn">Botões</a><a href="#badge">Badges</a><a href="#alert">Alertas</a>
+      <a href="#list">Lista de pessoas</a><a href="#table">Tabela</a><a href="#tabs">Abas</a><a href="#empty">Estado vazio</a>
+    </nav>
+  </header>
+
+  <!-- ===================== TOKENS ===================== -->
+  <section id="tokens">
+    <h2 class="bd-section__title">Tokens</h2>
+    <p class="bd-muted">Títulos em <strong>Montserrat</strong>, texto em <strong>Inter</strong> (fallback: system-ui). Cartões raio 24px · inputs e botões 10px · badges pílula. Sombra <code>0 4px 20px rgba(45,45,45,.06)</code>.</p>
+    <div class="swatches">
+      <div class="swatch"><div style="background:#ED1C24"></div><p>Primary (vermelho Pitang)<br><code>#ED1C24 --bd-primary</code></p></div>
+      <div class="swatch"><div style="background:#BE0F16"></div><p>Primary dark (hover)<br><code>#BE0F16 --bd-primary-dark</code></p></div>
+      <div class="swatch"><div style="background:#FF8000"></div><p>Accent (laranja)<br><code>#FF8000 --bd-accent</code></p></div>
+      <div class="swatch"><div style="background:#2D2D2D"></div><p>Ink (texto e títulos)<br><code>#2D2D2D --bd-ink</code></p></div>
+      <div class="swatch"><div style="background:#777777"></div><p>Muted<br><code>#777777 --bd-muted</code></p></div>
+      <div class="swatch"><div style="background:#999999"></div><p>Soft (inativo)<br><code>#999999 --bd-soft</code></p></div>
+      <div class="swatch"><div style="background:#FFFFFF;border-bottom:1px solid #E6E6E6"></div><p>Background<br><code>#FFFFFF --bd-bg</code></p></div>
+      <div class="swatch"><div style="background:#E6E6E6"></div><p>Border<br><code>#E6E6E6 --bd-border</code></p></div>
+      <div class="swatch"><div style="background:#F6B700"></div><p>Yellow<br><code>#F6B700 --bd-yellow</code></p></div>
+      <div class="swatch"><div style="background:#00C392"></div><p>Green<br><code>#00C392 --bd-green</code></p></div>
+      <div class="swatch"><div style="background:#B5D61E"></div><p>Lime<br><code>#B5D61E --bd-lime</code></p></div>
+      <div class="swatch"><div style="background:#FDE8E9"></div><p>Tint red (banner)<br><code>#FDE8E9 --bd-tint-red</code></p></div>
+      <div class="swatch"><div style="background:#FFF2E5"></div><p>Tint orange<br><code>#FFF2E5 --bd-tint-orange</code></p></div>
+      <div class="swatch"><div style="background:#FEF8E0"></div><p>Tint yellow<br><code>#FEF8E0 --bd-tint-yellow</code></p></div>
+      <div class="swatch"><div style="background:#E0F8F1"></div><p>Tint green<br><code>#E0F8F1 --bd-tint-green</code></p></div>
+      <div class="swatch"><div style="background:#F5F5F5"></div><p>Tint gray<br><code>#F5F5F5 --bd-tint-gray</code></p></div>
+    </div>
+  </section>
+
+  <!-- ===================== LAYOUT ===================== -->
+  <section id="layout">
+    <h2 class="bd-section__title">Layout: cabeçalho + banner + conteúdo + rodapé</h2>
+    <p class="bd-muted">Esqueleto de toda tela, centralizado em 1200px como o site. O cabeçalho flutua com borda vermelha; o banner rosado traz o título da página; <code>.bd-content</code> é a área onde os cartões entram.</p>
+    <div class="demo frame">
+<div class="bd-app">
+  <header class="bd-header">
+    <div class="bd-container">
+      <div class="bd-header__bar">
+        <a class="bd-logo" href="#"><img class="bd-logo__img" src="img/pitang.svg" alt="Pitang"></a>
+        <nav class="bd-nav">
+          <a class="bd-nav__item is-active" href="#">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Inscrições
+          </a>
+          <a class="bd-nav__item" href="#">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            Check-in
+          </a>
+        </nav>
+      </div>
+    </div>
+  </header>
+  <section class="bd-hero">
+    <div class="bd-container">
+      <div class="bd-hero__box">
+        <h1 class="bd-hero__title">Inscrições da <em>Oficina</em></h1>
+        <p class="bd-hero__text">Spec Driven Development · REC'n'Play 2026</p>
+      </div>
+    </div>
+  </section>
+  <main class="bd-content">
+    <div class="bd-card">Conteúdo da tela entra aqui, dentro de cartões.</div>
+  </main>
+  <footer class="bd-footer">Oficina SDD · REC'n'Play 2026 · Pitang</footer>
+</div>
+    </div>
+    <pre></pre>
+  </section>
+
+  <!-- ===================== CARTÃO ===================== -->
+  <section id="card">
+    <h2 class="bd-section__title">Cartão e título de seção</h2>
+    <p class="bd-muted">Título de seção em vermelho, <em>fora</em> do cartão (como as seções do site). Use <code>.bd-count</code> para contagens.</p>
+    <div class="demo bd-section">
+<h2 class="bd-section__title">Confirmados <span class="bd-count">3</span></h2>
+<div class="bd-card">
+  <div class="bd-card__header">
+    <h3 class="bd-card__title">Título dentro do cartão</h3>
+    <button class="bd-btn bd-btn--outline bd-btn--sm" type="button">Ação</button>
+  </div>
+  <p class="bd-muted" style="margin:0">Corpo do cartão. Variantes: <code>.bd-card--accent</code> (borda laranja, para destaque), <code>.bd-card--outlined</code> (sem sombra) e <code>.bd-card--flush</code> (sem padding, para tabelas).</p>
+</div>
+    </div>
+    <pre></pre>
+  </section>
+
+  <!-- ===================== STATS ===================== -->
+  <section id="stats">
+    <h2 class="bd-section__title">Indicadores (stat tiles)</h2>
+    <p class="bd-muted">Para contagens como presentes, ausentes, vagas. Ícone: <code>--green</code>, <code>--red</code>, <code>--yellow</code>, <code>--orange</code>.</p>
+    <div class="demo">
+<div class="bd-stats">
+  <div class="bd-card bd-stat">
+    <span class="bd-stat__icon bd-stat__icon--green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+    <div><div class="bd-stat__label">Presentes</div><div class="bd-stat__value" id="stat-present">12</div></div>
+  </div>
+  <div class="bd-card bd-stat">
+    <span class="bd-stat__icon bd-stat__icon--red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>
+    <div><div class="bd-stat__label">Ausentes</div><div class="bd-stat__value" id="stat-absent">3</div></div>
+  </div>
+  <div class="bd-card bd-stat">
+    <span class="bd-stat__icon bd-stat__icon--yellow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>
+    <div><div class="bd-stat__label">Em espera</div><div class="bd-stat__value" id="stat-waitlist">5</div></div>
+  </div>
+  <div class="bd-card bd-stat">
+    <span class="bd-stat__icon bd-stat__icon--orange"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+    <div><div class="bd-stat__label">Vagas</div><div class="bd-stat__value">15 / 20</div></div>
+  </div>
+</div>
+    </div>
+    <pre></pre>
+  </section>
+
+  <!-- ===================== FORM ===================== -->
+  <section id="form">
+    <h2 class="bd-section__title">Formulário</h2>
+    <p class="bd-muted">Campos empilhados por padrão; <code>.bd-form--inline</code> coloca lado a lado com o botão no fim. Mensagem de erro em <code>.bd-alert</code> (some quando vazio).</p>
+    <div class="demo">
+<div class="bd-card">
+  <form class="bd-form bd-form--inline" id="form">
+    <div class="bd-field">
+      <label class="bd-field__label" for="name">Nome</label>
+      <input class="bd-input" id="name" name="name" placeholder="Ex.: Ana Lima" autocomplete="off" required>
+    </div>
+    <div class="bd-field">
+      <label class="bd-field__label" for="email">E-mail</label>
+      <input class="bd-input" id="email" name="email" placeholder="ana@mail.com" autocomplete="off" required>
+    </div>
+    <button class="bd-btn bd-btn--primary" type="submit">Inscrever</button>
+  </form>
+  <p class="bd-alert bd-alert--error" id="message" role="alert" style="margin:20px 0 0">E-mail já cadastrado</p>
+</div>
+    </div>
+    <pre></pre>
+  </section>
+
+  <!-- ===================== BUTTONS ===================== -->
+  <section id="btn">
+    <h2 class="bd-section__title">Botões</h2>
+    <p class="bd-muted">Ação principal: <code>--primary</code> (vermelho). Destaque alternativo: <code>--accent</code> (laranja). Secundária: <code>--outline</code>. Destrutiva (cancelar, remover): <code>--danger</code>. Confirmação positiva (check-in): <code>--success</code>. Em listas e tabelas, adicione <code>--sm</code>.</p>
+    <div class="demo bd-card bd-row">
+<button class="bd-btn bd-btn--primary" type="button">Inscrever</button>
+<button class="bd-btn bd-btn--accent" type="button">Saiba mais</button>
+<button class="bd-btn bd-btn--outline" type="button">Editar</button>
+<button class="bd-btn bd-btn--danger" type="button">Cancelar</button>
+<button class="bd-btn bd-btn--success" type="button">Check-in</button>
+<button class="bd-btn bd-btn--ghost" type="button">Limpar</button>
+<button class="bd-btn bd-btn--primary" type="button" disabled>Desabilitado</button>
+<button class="bd-btn bd-btn--primary bd-btn--sm" type="button">Pequeno</button>
+<button class="bd-btn bd-btn--danger bd-btn--sm" type="button">Cancelar</button>
+<button class="bd-btn bd-btn--success bd-btn--sm" type="button">Check-in</button>
+<button class="bd-btn bd-btn--icon" type="button" aria-label="Notificações"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0"/></svg></button>
+    </div>
+    <pre></pre>
+  </section>
+
+  <!-- ===================== BADGES ===================== -->
+  <section id="badge">
+    <h2 class="bd-section__title">Badges de status</h2>
+    <p class="bd-muted">Status de uma pessoa ou item. Use sempre a mesma cor para o mesmo significado: verde = presente, laranja = confirmado/informativo, amarelo = em espera, vermelho = cancelado/erro.</p>
+    <div class="demo bd-card bd-row">
+<span class="bd-badge bd-badge--success">Presente</span>
+<span class="bd-badge bd-badge--info">Confirmado</span>
+<span class="bd-badge bd-badge--warning">Em espera</span>
+<span class="bd-badge bd-badge--danger">Cancelado</span>
+<span class="bd-badge bd-badge--accent">Novo</span>
+<span class="bd-badge bd-badge--neutral">Ausente</span>
+<span class="bd-count">7</span>
+    </div>
+    <pre></pre>
+  </section>
+
+  <!-- ===================== ALERTS ===================== -->
+  <section id="alert">
+    <h2 class="bd-section__title">Alertas e mensagens</h2>
+    <p class="bd-muted">Para feedback da API. Um elemento <code>.bd-alert</code> vazio não ocupa espaço: basta trocar o <code>textContent</code>.</p>
+    <div class="demo bd-card bd-form">
+<p class="bd-alert bd-alert--error" role="alert">Nome e e-mail são obrigatórios</p>
+<p class="bd-alert bd-alert--success" role="status">Inscrição realizada</p>
+<p class="bd-alert bd-alert--warning">Sala lotada: você entrou na lista de espera</p>
+<p class="bd-alert bd-alert--info">O servidor não recarrega sozinho: Ctrl+C e npm start.</p>
+    </div>
+    <pre></pre>
+  </section>
+
+  <!-- ===================== LIST ===================== -->
+  <section id="list">
+    <h2 class="bd-section__title">Lista de pessoas</h2>
+    <p class="bd-muted">Para listas de inscritos: avatar com iniciais, nome e e-mail, badge e ações. Cores de avatar: padrão (vermelho), <code>--green</code>, <code>--yellow</code>, <code>--orange</code>. Com <code>.bd-list__body--inline</code>, nome e e-mail ficam na mesma linha ("Nome — e-mail").</p>
+    <div class="demo bd-section">
+<h2 class="bd-section__title">Confirmados <span class="bd-count">2</span></h2>
+<div class="bd-card">
+  <ul class="bd-list" id="confirmed">
+    <li class="bd-list__item">
+      <span class="bd-avatar">AL</span>
+      <div class="bd-list__body"><strong>Ana Lima</strong><span>ana@mail.com</span></div>
+      <span class="bd-badge bd-badge--success">Presente</span>
+      <div class="bd-list__actions">
+        <button class="bd-btn bd-btn--danger bd-btn--sm" type="button">Cancelar</button>
+      </div>
+    </li>
+    <li class="bd-list__item">
+      <span class="bd-avatar bd-avatar--green">BS</span>
+      <div class="bd-list__body bd-list__body--inline"><strong>Bia Souza</strong><span>— bia@mail.com</span></div>
+      <div class="bd-list__actions">
+        <button class="bd-btn bd-btn--success bd-btn--sm" type="button">Check-in</button>
+        <button class="bd-btn bd-btn--danger bd-btn--sm" type="button">Cancelar</button>
+      </div>
+    </li>
+  </ul>
+</div>
+    </div>
+    <pre></pre>
+  </section>
+
+  <!-- ===================== TABLE ===================== -->
+  <section id="table">
+    <h2 class="bd-section__title">Tabela</h2>
+    <p class="bd-muted">Para dados com várias colunas. Dentro de <code>.bd-card</code>; envolva em <code>.bd-table-wrap</code> para rolar no celular.</p>
+    <div class="demo bd-card">
+<div class="bd-table-wrap">
+  <table class="bd-table">
+    <thead>
+      <tr><th>#</th><th>Nome</th><th>E-mail</th><th>Status</th><th class="is-right">Ações</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="is-muted">1</td><td>Ana Lima</td><td class="is-muted">ana@mail.com</td>
+        <td><span class="bd-badge bd-badge--info">Confirmado</span></td>
+        <td class="is-right"><button class="bd-btn bd-btn--danger bd-btn--sm" type="button">Cancelar</button></td>
+      </tr>
+      <tr>
+        <td class="is-muted">2</td><td>Caio Melo</td><td class="is-muted">caio@mail.com</td>
+        <td><span class="bd-badge bd-badge--warning">Em espera</span></td>
+        <td class="is-right"><button class="bd-btn bd-btn--danger bd-btn--sm" type="button">Cancelar</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+    </div>
+    <pre></pre>
+  </section>
+
+  <!-- ===================== TABS ===================== -->
+  <section id="tabs">
+    <h2 class="bd-section__title">Abas</h2>
+    <p class="bd-muted">Para alternar grupos na mesma tela (ex.: Confirmados / Lista de espera). Troque <code>.is-active</code> via JS.</p>
+    <div class="demo bd-card">
+<div class="bd-tabs" role="tablist">
+  <button class="bd-tab is-active" type="button" role="tab" aria-selected="true">Confirmados</button>
+  <button class="bd-tab" type="button" role="tab" aria-selected="false">Lista de espera</button>
+  <button class="bd-tab" type="button" role="tab" aria-selected="false">Faltaram</button>
+</div>
+    </div>
+    <pre></pre>
+  </section>
+
+  <!-- ===================== EMPTY ===================== -->
+  <section id="empty">
+    <h2 class="bd-section__title">Estado vazio e progresso</h2>
+    <p class="bd-muted">Quando a lista não tem itens, mostre o estado vazio em vez de nada. Progresso para ocupação de vagas.</p>
+    <div class="demo bd-card bd-form">
+<div class="bd-empty">
+  <span class="bd-empty__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg></span>
+  <strong>Ninguém inscrito ainda</strong>
+  <span>Cadastre a primeira pessoa pelo formulário acima.</span>
+</div>
+<div>
+  <div class="bd-row" style="justify-content:space-between;margin-bottom:8px"><span class="bd-muted">Vagas ocupadas</span><strong>15 / 20</strong></div>
+  <div class="bd-progress"><div class="bd-progress__bar" style="width:75%"></div></div>
+</div>
+    </div>
+    <pre></pre>
+  </section>
+
+</div>
+
+<script>
+  // Copia o HTML de cada .demo para o <pre> seguinte, para o snippet ficar sempre igual ao que está renderizado.
+  document.querySelectorAll('.demo').forEach((demo) => {
+    const pre = demo.nextElementSibling;
+    if (!pre || pre.tagName !== 'PRE') return;
+    const lines = demo.innerHTML.replace(/^\s*\n|\n\s*$/g, '').split('\n');
+    const indent = Math.min(...lines.filter((l) => l.trim()).map((l) => l.match(/^\s*/)[0].length));
+    pre.textContent = lines.map((l) => l.slice(indent)).join('\n');
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inscrições da Oficina</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="bd-app">
+  <header class="bd-header">
+    <div class="bd-container">
+      <div class="bd-header__bar">
+        <a class="bd-logo" href="#app"><img class="bd-logo__img" src="img/pitang.svg" alt="Pitang"></a>
+        <nav class="bd-nav">
+          <a class="bd-nav__item is-active" href="#app">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Inscrições
+          </a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <section class="bd-hero">
+    <div class="bd-container">
+      <div class="bd-hero__box">
+        <h1 class="bd-hero__title">Inscrições da <em>Oficina</em></h1>
+        <p class="bd-hero__text">Spec Driven Development · REC'n'Play 2026</p>
+      </div>
+    </div>
+  </section>
+
+  <main class="bd-content" id="app">
+    <section class="bd-section">
+      <h2 class="bd-section__title">Nova inscrição</h2>
+      <div class="bd-card">
+        <form class="bd-form bd-form--inline" id="form">
+          <div class="bd-field">
+            <label class="bd-field__label" for="name">Nome</label>
+            <input class="bd-input" id="name" name="name" placeholder="Ex.: Ana Lima" autocomplete="off" required>
+          </div>
+          <div class="bd-field">
+            <label class="bd-field__label" for="email">E-mail</label>
+            <input class="bd-input" id="email" name="email" placeholder="ana@mail.com" autocomplete="off" required>
+          </div>
+          <button class="bd-btn bd-btn--primary" type="submit">Inscrever</button>
+        </form>
+        <p class="bd-alert bd-alert--error" id="message" role="alert"></p>
+      </div>
+    </section>
+
+    <div class="bd-grid bd-grid--2">
+      <section class="bd-section">
+        <h2 class="bd-section__title" id="confirmed-title">Confirmados <span class="bd-count">0</span></h2>
+        <div class="bd-card"><ul class="bd-list" id="confirmed"></ul></div>
+      </section>
+      <section class="bd-section">
+        <h2 class="bd-section__title" id="waitlist-title">Lista de espera <span class="bd-count">0</span></h2>
+        <div class="bd-card"><ul class="bd-list" id="waitlist"></ul></div>
+      </section>
+    </div>
+
+    <section class="bd-section">
+      <h2 class="bd-section__title">Resultado final</h2>
+      <div class="bd-card">
+        <button class="bd-btn bd-btn--outline" id="attendance-button" type="button">Ver ou atualizar resultado final</button>
+      </div>
+      <div class="bd-grid bd-grid--2">
+        <section class="bd-section">
+          <h2 class="bd-section__title">Presentes</h2>
+          <div class="bd-card"><ul class="bd-list" id="present-list"></ul></div>
+        </section>
+        <section class="bd-section">
+          <h2 class="bd-section__title">Ausentes</h2>
+          <div class="bd-card"><ul class="bd-list" id="absent-list"></ul></div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bd-footer">Oficina SDD · REC'n'Play 2026 · Pitang</footer>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
